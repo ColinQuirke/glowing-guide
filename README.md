@@ -1,37 +1,10 @@
-## Welcome to GitHub Pages
+# Welcome to the solver wiki!
 
-You can use the [editor on GitHub](https://github.com/ColinQuirke/glowing-guide/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This is  personal project set up with a few goals in mind.
+1. Become a better software engineer
+1. Refamiliarize myself with some SAT and CSP algorithms and techniques I used to know well.
+1. Learn some new skills
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+To do this I will practice and explore techniques like TDD, modern c++, refactoring and general clean coding principles. I will practice these techniques by creating solvers for SAT and CSP problems. And I will, in time, host those solvers on a public website backed by a public API.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ColinQuirke/glowing-guide/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+This is intended to be the first solver, and I plan to implement the classic Davis–Putnam–Logemann–Loveland (DPLL) algorithm for testing boolean satisfiability. Details of the algorithm are available here - [en.wikipedia.org/wiki/DPLL_algorithm](https://en.wikipedia.org/wiki/DPLL_algorithm)
