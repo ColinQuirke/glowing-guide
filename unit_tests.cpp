@@ -7,23 +7,35 @@ namespace cnf{
 
 class Clause
 {
+private:
+    int getLFalseLiteral(int atom, bool toValue)
+    {
+        return toValue ? (-1*atom) : atom;
+    }
+
+    void eliminateFalseLiteral(int atom, bool toValue)
+    {
+        auto literal = getLFalseLiteral(atom,toValue);
+        literals.remove(literal);
+    }
+
 public:
-    Clause(std::list<int> c):clause({c}){}
+
+    Clause(std::list<int> c):literals({c}){}
 
     const size_t size()
     {
-        return clause.size();
+        return literals.size();
     }
 
-    void setVariable(int variable, bool toValue)
+    void setAtom(int atom, bool toValue)
     {
-        if(toValue)
-            variable *= -1;
-        clause.remove(variable);
+        eliminateFalseLiteral(atom,toValue);
     }
 
 private:
-    std::list<int> clause;
+
+    std::list<int> literals;
 };
 
 }
@@ -36,31 +48,31 @@ TEST_CASE("Clauses")
     {
         REQUIRE(clause->size()==3);
     }
-    SECTION("Literal Assigned")
+    SECTION("Atom Assigned")
     {
-        SECTION("Literal not in clause")
+        SECTION("Atom not in clause")
         {
-            clause->setVariable(4,false);
+            clause->setAtom(4,false);
             REQUIRE(clause->size()==3);
         }
-        SECTION("Literal assigned false while true in clause")
+        SECTION("Atom assigned false while literal true in clause")
         {
-            clause->setVariable(1,false);
+            clause->setAtom(1,false);
             REQUIRE(clause->size()==2);
         }
-        SECTION("Literal assigned true while false in clause")
+        SECTION("Atom assigned true while literal false in clause")
         {
-            clause->setVariable(2,true);
+            clause->setAtom(2,true);
             REQUIRE(clause->size()==2);
         }
-        SECTION("Literal assigned false while false in clause")
+        SECTION("Atom assigned false while literal false in clause")
         {
-            clause->setVariable(2,false);
+            clause->setAtom(2,false);
             REQUIRE(clause->size()==3);
         }
-        SECTION("Literal assigned true while true in clause")
+        SECTION("Atom assigned true while literal true in clause")
         {
-            clause->setVariable(1,true);
+            clause->setAtom(1,true);
             REQUIRE(clause->size()==3);
         }
 
