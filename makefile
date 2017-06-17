@@ -23,8 +23,8 @@ unit_tests: $(OBJ)
 tests: unit_tests
 	./unit_tests.out
 
-$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+$(OBJDIR)/%.o: %.cpp 
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJDIR):
 	@mkdir $@
