@@ -7,29 +7,26 @@ namespace cnf{
 class Clause
 {
 private:
-    int translasteAtomAssignmentToLiteral(int atom, bool toValue);
 
-    void eliminateFalseLiteral(int atom, bool toValue);
-
-    void checkIfSatisfiedByAssignment(int atom, bool toValue);
 
 public:
 
     Clause(std::list<int> c);
 
-    void trim();
-
     const size_t size();
+    const bool isEmpty();
+    const bool isUnitClause();
+    const bool isSatisfied();
 
     void setAtom(int atom, bool toValue);
 
-    bool isEmpty();
-
-    bool isUnitClause();
-
-    bool isSatisfied();
-
 private:
+
+    void removeDuplicateLiterals();
+    void checkIfSatisfiedByLiteralAndNegation();
+    int translasteAtomAssignmentToLiteral(int atom, bool toValue);
+    void eliminateFalseLiteral(int atom, bool toValue);
+    void checkIfSatisfiedByAssignment(int atom, bool toValue);
 
     std::list<int> literals;
     bool satisfied = false;

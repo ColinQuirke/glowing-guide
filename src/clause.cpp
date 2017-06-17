@@ -1,9 +1,52 @@
 #include "clause.h"
 #include <cstdlib>
 
-int cnf::Clause::translasteAtomAssignmentToLiteral(int atom, bool toValue)
+
+cnf::Clause::Clause(std::list<int> c):literals({c})
 {
-    return toValue ? atom : (-1*atom);
+    checkIfSatisfiedByLiteralAndNegation();
+}
+
+void cnf::Clause::checkIfSatisfiedByLiteralAndNegation()
+{
+    removeDuplicateLiterals();
+    auto before = literals.size();
+    literals.sort([](int first, int second){return std::abs(first) < std::abs(second);});
+    literals.unique([](int first, int second){return std::abs(first) == std::abs(second);});
+    auto after = literals.size();
+    satisfied = before != after;
+}
+
+void cnf::Clause::removeDuplicateLiterals()
+{
+    literals.sort();
+    literals.unique();
+}
+
+const size_t cnf::Clause::size()
+{
+    return literals.size();
+}
+
+const bool cnf::Clause::isEmpty()
+{
+    return size() == 0;
+}
+
+const bool cnf::Clause::isUnitClause()
+{
+    return size() == 1;
+}
+
+const bool cnf::Clause::isSatisfied()
+{
+    return satisfied;
+}
+
+void cnf::Clause::setAtom(int atom, bool toValue)
+{
+    eliminateFalseLiteral(atom, toValue);
+    checkIfSatisfiedByAssignment(atom, toValue);
 }
 
 void cnf::Clause::eliminateFalseLiteral(int atom, bool toValue)
@@ -18,42 +61,7 @@ void cnf::Clause::checkIfSatisfiedByAssignment(int atom, bool toValue)
     satisfied = std::find(literals.begin(), literals.end(), literal) != literals.end();
 }
 
-cnf::Clause::Clause(std::list<int> c):literals({c})
+int cnf::Clause::translasteAtomAssignmentToLiteral(int atom, bool toValue)
 {
-    trim();
-}
-
-void cnf::Clause::trim()
-{
-    literals.sort([](int first, int second){return std::abs(first) < std::abs(second);});
-    literals.unique();
-    auto before = literals.size();
-    literals.unique([](int first, int second){return std::abs(first) == std::abs(second);});
-    satisfied = before != literals.size();
-}
-
-const size_t cnf::Clause::size()
-{
-    return literals.size();
-}
-
-void cnf::Clause::setAtom(int atom, bool toValue)
-{
-    eliminateFalseLiteral(atom, toValue);
-    checkIfSatisfiedByAssignment(atom, toValue);
-}
-
-bool cnf::Clause::isEmpty()
-{
-    return size() == 0;
-}
-
-bool cnf::Clause::isUnitClause()
-{
-    return size() == 1;
-}
-
-bool cnf::Clause::isSatisfied()
-{
-    return satisfied;
+    return toValue ? atom : (-1*atom);
 }

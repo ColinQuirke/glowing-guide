@@ -87,7 +87,7 @@ TEST_CASE("Clauses")
         }
         SECTION("Clause that contains a literal and its negation is trivially satisfied")
         {
-            auto clause = std::make_shared<cnf::Clause>(std::list<int>({1,-2,-1}));
+            auto clause = std::make_shared<cnf::Clause>(std::list<int>({1,-2,2}));
             REQUIRE(clause->isSatisfied());
         }
     }
