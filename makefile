@@ -5,6 +5,7 @@ OBJDIR :=.obj
 CXX = clang++
 CPPFLAGS += -MMD -MP
 CXXFLAGS += -std=c++14 -Wall -I$(INCDIR)
+TESTFLAGS += -fprofile-arcs -ftest-coverage
 
 SRC = $(wildcard $(SRCDIR)/*.cpp) $(wildcard $(TESTDIR)/*.cpp)
 TMP = $(notdir $(SRC:%.cpp=%.o))
@@ -18,7 +19,7 @@ print-%  : ; @echo $* = $($*)
 all: tests
 
 unit_tests: $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@.out $^
+	$(CXX) $(CXXFLAGS) $(TESTFLAGS) -o $@.out $^
 
 tests: unit_tests
 	./unit_tests.out
